@@ -1,0 +1,10 @@
+{
+  "databases": {
+    "register": {
+      "path": "./model/RegisterModel.js"
+    },
+    "test": {
+      "path": "./model/Test.js"
+    }
+  }
+}

@@ -4,6 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
+const sequelize = require("./database");
 
 // import routes & middleware
 const allRoutes = require("./routes/allRoutes");
@@ -13,6 +14,11 @@ const app = express();
 
 // Static Middleware
 app.use(express.static(path.join(__dirname, "public")));
+
+// create table
+// sequelize.sync({ force: true }).then(() => {
+//   console.log("Create re-sync db.");
+// });
 
 // use middleware
 app.use(morgan("dev"));
