@@ -34,6 +34,10 @@ const Register = database.define(
       unique: true,
       trim: true,
     },
+    role: {
+      type: DataTypes.TEXT,
+      defaultValue: "user",
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

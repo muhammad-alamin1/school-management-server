@@ -47,20 +47,52 @@ const userAuthRegisterController = async (req, res, next) => {
 
 // user login post controller
 const userAuthLoginController = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, user_password } = req.body;
   console.log(req.body);
 
   try {
-    connection.query(
-      "SELECT * FROM student_register_info WHERE email='" + email + "'",
-      (error, results) => {
-        if (error) {
-          console.log(error);
-        }
-        console.log(results);
-        res.send(results);
-      }
-    );
+    const user = await Register.findOne({
+      where: { email },
+    });
+    console.log(user);
+    // check user is valid
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        user: 1,
+        message: `Invalid credential.!`,
+      });
+    }
+
+    // matched password
+    const isMatched = await bcrypt.compare(user_password, user.password);
+    if (!isMatched) {
+      return res.status(401).json({
+        success: false,
+        user: 2,
+        message: `Invalid credential.!`,
+      });
+    }
+
+    // create token
+    const userData = {
+      _id: user.id,
+      role: user.role,
+      user_name: user.full_name,
+      email: user.email,
+      phone: user.phone,
+    };
+
+    // access token
+    const access_token = createAccessToken(userData);
+
+    // response token
+    res.json({
+      success: true,
+      access_token,
+      userData,
+      message: `Login successfully.!`,
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -68,6 +100,9 @@ const userAuthLoginController = async (req, res, next) => {
     });
   }
 };
+
+// user logout
+const userLogOutController = async (req, res, next) => {};
 
 // create token
 const createAccessToken = (user) => {
@@ -77,4 +112,5 @@ const createAccessToken = (user) => {
 module.exports = {
   userAuthRegisterController,
   userAuthLoginController,
+  userLogOutController,
 };
