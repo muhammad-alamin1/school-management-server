@@ -48,13 +48,12 @@ const userAuthRegisterController = async (req, res, next) => {
 // user login post controller
 const userAuthLoginController = async (req, res, next) => {
   const { email, user_password } = req.body;
-  console.log(req.body);
 
   try {
     const user = await Register.findOne({
       where: { email },
     });
-    console.log(user);
+
     // check user is valid
     if (!user) {
       return res.status(401).json({
@@ -86,6 +85,11 @@ const userAuthLoginController = async (req, res, next) => {
     // access token
     const access_token = createAccessToken(userData);
 
+    // res.cookie("access_token", access_token, {
+    //   httpOnly: true,
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+    // });
+
     // response token
     res.json({
       success: true,
@@ -104,6 +108,62 @@ const userAuthLoginController = async (req, res, next) => {
 // user logout
 const userLogOutController = async (req, res, next) => {};
 
+// get student data
+const allUserGetController = async (req, res, next) => {
+  try {
+    const allStudent = await Register.findAll({});
+
+    res.status(200).json({
+      success: true,
+      data: allStudent,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `There was an server side error.!`,
+    });
+  }
+};
+
+// get single student data
+const getSingleStudentDataController = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const student = await Register.findOne({ where: { email: id } });
+
+    res.status(200).json({
+      success: true,
+      data: student,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `There was an server side error.!`,
+    });
+  }
+};
+
+// delete student
+const deleteStudentController = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deleteStudent = await Register.destroy({ where: { email: id } });
+
+    res.status(200).json({
+      success: true,
+      data: deleteStudent,
+      message: `Student deleted successfully.!`,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `There was an server side error.!`,
+    });
+  }
+};
+
 // create token
 const createAccessToken = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "7d" });
@@ -113,4 +173,7 @@ module.exports = {
   userAuthRegisterController,
   userAuthLoginController,
   userLogOutController,
+  allUserGetController,
+  getSingleStudentDataController,
+  deleteStudentController,
 };
