@@ -5,6 +5,7 @@ const {
   allUserGetController,
   getSingleStudentDataController,
   deleteStudentController,
+  updateStudentController,
 } = require("../controllers/authController");
 const {
   authValidationErrorHandler,
@@ -21,5 +22,6 @@ authRouter.post("/login", userAuthLoginController);
 authRouter.get("/all-student", allUserGetController);
 authRouter.get("/single-student/:id", getSingleStudentDataController);
 authRouter.delete("/delete/single-student/:id", deleteStudentController);
+authRouter.put("/update/single-student/:id", updateStudentController);
 
 module.exports = authRouter;

@@ -22,7 +22,7 @@ const userAuthRegisterController = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(user_password, 10);
 
   try {
-    const test = await Register.create({
+    const user = await Register.create({
       full_name,
       user_name,
       email,
@@ -37,7 +37,6 @@ const userAuthRegisterController = async (req, res, next) => {
       message: `Student register successfully.!`,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: `There was an server side error.!`,
@@ -164,6 +163,38 @@ const deleteStudentController = async (req, res, next) => {
   }
 };
 
+// update student
+const updateStudentController = async (req, res, next) => {
+  const { id } = req.params;
+  const { full_name, user_name, email, phone, role } = req.body;
+
+  const updatedValue = {
+    full_name,
+    user_name,
+    email,
+    phone,
+    role,
+  };
+
+  try {
+    await Register.update(updatedValue, { where: { email: id } }).then(
+      (result) => {
+        if (result) {
+          res.status(200).json({
+            success: true,
+            message: `Updated successfully.!`,
+          });
+        }
+      }
+    );
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `There was an server side error.!`,
+    });
+  }
+};
+
 // create token
 const createAccessToken = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "7d" });
@@ -176,4 +207,5 @@ module.exports = {
   allUserGetController,
   getSingleStudentDataController,
   deleteStudentController,
+  updateStudentController,
 };
