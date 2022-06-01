@@ -46,7 +46,6 @@ const registerTeacherPostController = async (req, res, next) => {
       message: `Teacher added successfully.!`,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: `There was an server side error.!`,
