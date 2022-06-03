@@ -2,6 +2,7 @@ const authRouter = require("./authRouter");
 const noticeRouter = require("./noticeRouter");
 const rootRouter = require("./rootRouter");
 const teacherRouter = require("./teacherRouter");
+const userProfileRouter = require("./userProfileRoutes");
 
 const routes = [
   {
@@ -15,6 +16,10 @@ const routes = [
   {
     path: "/notice",
     handler: noticeRouter,
+  },
+  {
+    path: "/user",
+    handler: userProfileRouter,
   },
   {
     path: "/",

@@ -114,7 +114,7 @@ const teacherValidatorErrorHandler = (req, res, next) => {
     if (req.file) {
       const filename = req.file?.filename;
       unlink(
-        path.join(path.dirname(__dirname), `../public/uploads/${filename}`),
+        path.join(path.dirname(__dirname), `/public/uploads/${filename}`),
         (error) => {
           console.log(error);
         }

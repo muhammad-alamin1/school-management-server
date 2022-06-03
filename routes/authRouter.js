@@ -7,6 +7,8 @@ const {
   deleteStudentController,
   updateStudentController,
 } = require("../controllers/authController");
+const isAdmin = require("../middleware/isAdmin");
+const isAuthenticate = require("../middleware/isAuthenticate");
 const {
   authValidationErrorHandler,
   authValidator,
@@ -19,9 +21,17 @@ authRouter.post(
   userAuthRegisterController
 );
 authRouter.post("/login", userAuthLoginController);
-authRouter.get("/all-student", allUserGetController);
-authRouter.get("/single-student/:id", getSingleStudentDataController);
-authRouter.delete("/delete/single-student/:id", deleteStudentController);
-authRouter.put("/update/single-student/:id", updateStudentController);
+authRouter.get("/all-student", isAdmin, allUserGetController);
+authRouter.get(
+  "/single-student/:id",
+  isAuthenticate,
+  getSingleStudentDataController
+);
+authRouter.delete(
+  "/delete/single-student/:id",
+  isAdmin,
+  deleteStudentController
+);
+authRouter.put("/update/single-student/:id", isAdmin, updateStudentController);
 
 module.exports = authRouter;
