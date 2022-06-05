@@ -1,6 +1,8 @@
 const randomId = require("../common/randomIdGenerate");
 const Register = require("../model/RegisterModel");
 const UserProfile = require("../model/userProfileModel");
+const { unlink } = require("fs");
+const path = require("path");
 
 // create profile post controller
 const userCreateProfileController = async (req, res, next) => {
@@ -11,10 +13,14 @@ const userCreateProfileController = async (req, res, next) => {
     userClass,
     section,
     roll,
+    gender,
+    religion,
+    dob,
     currentAddress,
     permanentAddress,
     fatherName,
     fatherPhone,
+    fatherOccupation,
   } = req.body;
   const file = req.file?.filename;
 
@@ -28,11 +34,15 @@ const userCreateProfileController = async (req, res, next) => {
         user_class: userClass,
         section,
         roll,
+        gender,
+        religion,
+        dob,
         avatar: file || "",
         current_address: currentAddress,
         permanent_address: permanentAddress,
         father_name: fatherName,
         father_phone: fatherPhone,
+        father_occupation: fatherOccupation,
       });
 
       return res.status(200).json({
@@ -77,10 +87,14 @@ const userUpdateProfileController = async (req, res, next) => {
     userClass,
     section,
     roll,
+    gender,
+    religion,
+    dob,
     currentAddress,
     permanentAddress,
     fatherName,
     fatherPhone,
+    fatherOccupation,
   } = req.body;
   const file = req.file?.filename;
 
@@ -98,6 +112,7 @@ const userUpdateProfileController = async (req, res, next) => {
           permanent_address: permanentAddress,
           father_name: fatherName,
           father_phone: fatherPhone,
+          father_occupation: fatherOccupation,
         },
         { where: { email: id } }
       ).then((result) => {
@@ -131,6 +146,7 @@ const userUpdateProfileController = async (req, res, next) => {
           permanent_address: permanentAddress,
           father_name: fatherName,
           father_phone: fatherPhone,
+          father_occupation: fatherOccupation,
         },
         { where: { email: id } }
       ).then((result) => {
@@ -144,6 +160,7 @@ const userUpdateProfileController = async (req, res, next) => {
       });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       message: `There was an server side error.!`,
@@ -154,9 +171,11 @@ const userUpdateProfileController = async (req, res, next) => {
 // admin get all profile
 const adminGetAllProfileController = async (req, res, next) => {
   try {
-    const allProfile = await UserProfile.findAll({});
+    const allProfile = await UserProfile.findAll({
+      order: [["createdAt", "DESC"]],
+    });
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: allProfile,
     });

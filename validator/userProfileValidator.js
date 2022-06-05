@@ -31,6 +31,20 @@ const profileValidator = [
     .isLength({ min: 1 })
     .withMessage("Class roll number is required.!")
     .trim(),
+  check("gender").custom((gender, { req }) => {
+    if (gender == "") {
+      return Promise.reject("Gender is required.!");
+    }
+    return true;
+  }),
+  check("religion")
+    .isLength({ min: 1 })
+    .withMessage("Religion is required.!")
+    .trim(),
+  check("dob")
+    .isLength({ min: 1 })
+    .withMessage("Date of birth is required.!")
+    .trim(),
   check("avatar").custom((avatar, { req }) => {
     if (avatar === null) {
       return Promise.reject("Avatar is required.!");
@@ -57,6 +71,11 @@ const profileValidator = [
       strictMode: false,
     })
     .withMessage("Mobile number must be a valid Bangladeshi mobile number.!"),
+  check("fatherOccupation")
+    .isLength({ min: 1 })
+    .isAlpha("en-US", { ignore: " -" })
+    .withMessage("Father Occupation is required.!")
+    .trim(),
 ];
 
 // profile validator handler

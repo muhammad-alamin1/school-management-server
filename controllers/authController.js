@@ -110,7 +110,9 @@ const userLogOutController = async (req, res, next) => {};
 // get student data
 const allUserGetController = async (req, res, next) => {
   try {
-    const allStudent = await Register.findAll({});
+    const allStudent = await Register.findAll({
+      order: [["createdAt", "DESC"]],
+    });
 
     res.status(200).json({
       success: true,

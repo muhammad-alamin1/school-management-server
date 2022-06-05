@@ -33,7 +33,7 @@ userProfileRouter.put(
   upload.single("avatar"),
   userUpdateProfileController
 );
-userProfileRouter.delete("/delete/:id", isAdmin, adminDeleteUser);
+userProfileRouter.delete("/delete/profile/:id", isAdmin, adminDeleteUser);
 userProfileRouter.get(
   "/all-profile-data/",
   isAdmin,

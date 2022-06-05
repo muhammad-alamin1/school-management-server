@@ -40,6 +40,21 @@ const UserProfile = database.define(
       allowNull: false,
       trim: true,
     },
+    gender: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      trim: true,
+    },
+    religion: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      trim: true,
+    },
+    dob: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      trim: true,
+    },
     avatar: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -60,6 +75,11 @@ const UserProfile = database.define(
       trim: true,
     },
     father_phone: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      trim: true,
+    },
+    father_occupation: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
