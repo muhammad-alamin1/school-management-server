@@ -17,7 +17,7 @@ const isAdmin = async (req, res, next) => {
     ) {
       next();
     } else {
-      res.status(400).json({
+      return res.status(403).json({
         success: false,
         message: `Invalid Authentication`,
       });

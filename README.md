@@ -1,1 +1,1 @@
-# School Management Server
+# School Management Server (MVC)
