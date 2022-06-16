@@ -1,4 +1,5 @@
 const authRouter = require("./authRouter");
+const examScheduleRouter = require("./examScheduleRouter");
 const noticeRouter = require("./noticeRouter");
 const rootRouter = require("./rootRouter");
 const teacherRouter = require("./teacherRouter");
@@ -25,6 +26,10 @@ const routes = [
   {
     path: "/top-student",
     handler: topStudentRouter,
+  },
+  {
+    path: "/exam-schedule",
+    handler: examScheduleRouter,
   },
   {
     path: "/",
