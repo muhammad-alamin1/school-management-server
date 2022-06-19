@@ -6,6 +6,7 @@ const {
   getSingleStudentDataController,
   deleteStudentController,
   updateStudentController,
+  changePasswordController,
 } = require("../controllers/authController");
 const isAdmin = require("../middleware/isAdmin");
 const isAuthenticate = require("../middleware/isAuthenticate");
@@ -13,6 +14,10 @@ const {
   authValidationErrorHandler,
   authValidator,
 } = require("../validator/authValidator");
+const {
+  passwordValidator,
+  passwordUpdateErrorHandler,
+} = require("../validator/passwordUpdateValidator");
 
 authRouter.post(
   "/register",
@@ -33,5 +38,12 @@ authRouter.delete(
   deleteStudentController
 );
 authRouter.put("/update/single-student/:id", isAdmin, updateStudentController);
+authRouter.put(
+  "/user/change-password",
+  isAuthenticate,
+  passwordValidator,
+  passwordUpdateErrorHandler,
+  changePasswordController
+);
 
 module.exports = authRouter;

@@ -197,6 +197,50 @@ const updateStudentController = async (req, res, next) => {
   }
 };
 
+// change password
+const changePasswordController = async (req, res, next) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  try {
+    const user = await Register.findOne({ where: { email: req.email } });
+
+    // match old pass
+    let isMatchedPassword = await bcrypt.compare(oldPassword, user.password);
+
+    if (!isMatchedPassword) {
+      return res.status(500).json({
+        success: false,
+        message: `Invalid Password.!`,
+      });
+    } else {
+      let hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+      // update value
+      const updatePassword = {
+        password: hashedNewPassword,
+        confirm_password: hashedNewPassword,
+      };
+
+      await Register.update(updatePassword, {
+        where: { email: user.email },
+      }).then((result) => {
+        if (result) {
+          return res.status(200).json({
+            success: true,
+            message: `Password Updated Successfully.!`,
+          });
+        }
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: `There was an server side error.!`,
+    });
+  }
+};
+
 // create token
 const createAccessToken = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "7d" });
@@ -210,4 +254,5 @@ module.exports = {
   getSingleStudentDataController,
   deleteStudentController,
   updateStudentController,
+  changePasswordController,
 };
