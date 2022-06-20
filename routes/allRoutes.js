@@ -1,5 +1,6 @@
 const authRouter = require("./authRouter");
 const classTimeTableRouter = require("./classTimeTableRouter");
+const contactUsRouter = require("./contactUsRouter");
 const examScheduleRouter = require("./examScheduleRouter");
 const noticeRouter = require("./noticeRouter");
 const rootRouter = require("./rootRouter");
@@ -35,6 +36,10 @@ const routes = [
   {
     path: "/class-time-table",
     handler: classTimeTableRouter,
+  },
+  {
+    path: "/contact-us",
+    handler: contactUsRouter,
   },
   {
     path: "/",
