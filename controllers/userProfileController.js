@@ -26,7 +26,7 @@ const userCreateProfileController = async (req, res, next) => {
 
   try {
     if (req.file) {
-      const newProfileCreate = UserProfile.create({
+      const newProfileCreate = await UserProfile.create({
         _id: randomId(),
         full_name: fullName,
         phone,
