@@ -27,14 +27,16 @@ const addNoticePostController = async (req, res, next) => {
 // get all notice
 const getAllNotice = async (req, res, next) => {
   try {
-    const allNotice = await await Notice.findAll({
+    const allNotice = await Notice.findAll({
       order: [["createdAt", "DESC"]],
     });
 
-    res.status(200).json({
-      success: true,
-      data: allNotice,
-    });
+    if (allNotice) {
+      res.status(200).json({
+        success: true,
+        data: allNotice,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
