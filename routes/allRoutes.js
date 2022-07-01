@@ -6,6 +6,7 @@ const eventRouter = require("./eventRouter");
 const examScheduleRouter = require("./examScheduleRouter");
 const noticeRouter = require("./noticeRouter");
 const onlineAdmissionRouter = require("./onlineAdmissionRouter");
+const osRouter = require("./osRouter");
 const rootRouter = require("./rootRouter");
 const teacherRouter = require("./teacherRouter");
 const topStudentRouter = require("./topStudentRouter");
@@ -55,6 +56,10 @@ const routes = [
   {
     path: "/events",
     handler: eventRouter,
+  },
+  {
+    path: "/os",
+    handler: osRouter,
   },
   {
     path: "/",
