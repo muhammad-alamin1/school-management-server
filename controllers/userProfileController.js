@@ -233,10 +233,34 @@ const adminDeleteUser = async (req, res, next) => {
   }
 };
 
+// profile status update
+const profileStatusUpdateController = async (req, res, next) => {
+  try {
+    await UserProfile.update(
+      { status: "Approved" },
+      { where: { _id: req.params.id } }
+    ).then((result) => {
+      if (result) {
+        // success response
+        return res.status(200).json({
+          success: true,
+          message: `Status Updated Successfully.!`,
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `There was an server side error.!`,
+    });
+  }
+};
+
 module.exports = {
   userCreateProfileController,
   createProfileSingleGetDataController,
   userUpdateProfileController,
   adminDeleteUser,
   adminGetAllProfileController,
+  profileStatusUpdateController,
 };

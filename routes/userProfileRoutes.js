@@ -5,6 +5,7 @@ const {
   userUpdateProfileController,
   adminDeleteUser,
   adminGetAllProfileController,
+  profileStatusUpdateController,
 } = require("../controllers/userProfileController");
 const isAdmin = require("../middleware/isAdmin");
 const isAuthenticate = require("../middleware/isAuthenticate");
@@ -38,6 +39,11 @@ userProfileRouter.get(
   "/all-profile-data/",
   isAdmin,
   adminGetAllProfileController
+);
+userProfileRouter.put(
+  "/status-update/profile/:id",
+  isAdmin,
+  profileStatusUpdateController
 );
 
 module.exports = userProfileRouter;

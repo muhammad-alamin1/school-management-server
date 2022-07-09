@@ -15,11 +15,6 @@ const app = express();
 // Static Middleware
 app.use(express.static(path.join(__dirname, "public")));
 
-// create table
-// sequelize.sync({ force: true }).then(() => {
-//   console.log("Create re-sync db.");
-// });
-
 // use middleware
 app.use(morgan("dev"));
 app.use(cors());
@@ -28,6 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // use routes
 allRoutes(app);
+
+// create table
+// sequelize.sync({ force: true }).then(() => {
+//   console.log("Create re-sync db.");
+// });
 
 // post running
 const port = process.env.PORT || 8080;

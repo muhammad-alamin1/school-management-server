@@ -1,21 +1,10 @@
+const sequelize = require("../database");
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite::memory:");
-const database = require("../database");
 
-const UserProfile = database.define(
-  "user_profile",
+const ExamResult = sequelize.define(
+  "exam_result",
   {
     _id: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      trim: true,
-    },
-    full_name: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      trim: true,
-    },
-    phone: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
@@ -40,53 +29,45 @@ const UserProfile = database.define(
       allowNull: false,
       trim: true,
     },
-    gender: {
+    exam_title: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
     },
-    religion: {
+    bangla_first: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
     },
-    dob: {
+    bangla_second: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
     },
-    avatar: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    current_address: {
+    english_first: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
     },
-    permanent_address: {
+    english_second: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
     },
-    father_name: {
+    mathematics: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
     },
-    father_phone: {
+    ict: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
     },
-    father_occupation: {
+    cgpa: {
       type: DataTypes.TEXT,
       allowNull: false,
       trim: true,
-    },
-    status: {
-      type: DataTypes.TEXT,
-      defaultValue: "Pending",
     },
   },
   {
@@ -94,4 +75,4 @@ const UserProfile = database.define(
   }
 );
 
-module.exports = UserProfile;
+module.exports = ExamResult;
