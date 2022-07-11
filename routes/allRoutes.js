@@ -1,4 +1,5 @@
 const authRouter = require("./authRouter");
+const bookRouter = require("./bookRouter");
 const classTimeTableRouter = require("./classTimeTableRouter");
 const contactUsRouter = require("./contactUsRouter");
 const employeeRouter = require("./employeeRouter");
@@ -65,6 +66,10 @@ const routes = [
   {
     path: "/os",
     handler: osRouter,
+  },
+  {
+    path: "/book",
+    handler: bookRouter,
   },
   {
     path: "/",
